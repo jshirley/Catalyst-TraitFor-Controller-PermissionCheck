@@ -5,14 +5,74 @@ use Try::Tiny;
 
 ## ABSTRACT: Provides an opinionated method for verifying permissions on a per-action basis by inspecting the user.
 
+=head1 SYNOPSIS
+
+In your controller (yes, this is per-controller)
+
+    package MyApp::Controller::Something;
+
+    use Moose;
+
+    BEGIN { extends 'Catalyst::Controller'; }
+
+    with 'CatalystX::Controller::Role::PermissionCheck';
+
+    __PACKAGE__->config(
+        permissions => {
+            'some_action' => [ qw/List Of Permissions Required/ ],
+        },
+        # Deny everything, requires all actions have permissions.
+        # allow_by_default => 1 only checks if a permission entry exists
+        allow_by_default => 0,
+    );
+
+    # Your root chain must be called 'setup'. This is convention must be
+    # followed if you want to use this module.
+    sub setup : Chained('/something_that_sets_permissions') PathPart('') CaptureArgs(0) {
+        my ( $self, $c ) = @_;
+        # Permissions must be in $c->stash->{context}->{permissions}
+        # and you can set them here. The module only looks at the keys
+        # of the hash.
+        $c->stash->{context}->{permissions} = {
+            'Admin' => 1,
+            'Super Admin' => 1,
+        }
+    }
+
+    sub some_action : Chained('setup') Args(0) {
+        my ( $self, $c ) = @_;
+        $c->res->body('Only accessible if permissions are ok');
+    }
+
+    sub permission_denied : Private {
+        my ( $self, $c ) = @_;
+        $c->res->status(403);
+        $c->res->body('GTFO');
+        $c->detach;
+    }
+
+    no Moose;
+    1;
+
+=cut
+
 # Requires setup in the consuming class.
 requires 'setup';
 
-has 'access_check' => (
-    is        => 'rw',
-    isa       => 'CodeRef',
-    predicate => 'has_access_check'
-);
+=attr permissions
+
+Configuration hash that is keyed by action name and should point to an
+array ref of required permissions.
+
+Set via config:
+
+    __PACKAGE__->config(
+        permissions => {
+            'action_name' => [ qw/Permission List/ ]
+        }
+    );
+
+=cut
 
 has 'permissions' => (
     is      => 'rw',
@@ -25,6 +85,14 @@ has 'permissions' => (
         'has_permissions' => 'count',
     }
 );
+
+=attr allow_by_default
+
+A boolean configuration option to control whether this module should restrict
+everything or let things go and only check permissions if they exist in
+the permissions hash.
+
+=cut
 
 has 'allow_by_default' => (
     is      => 'rw',
@@ -85,3 +153,9 @@ after 'setup' => sub {
 
 no Moose::Role;
 1;
+
+__END__
+
+=pod
+
+

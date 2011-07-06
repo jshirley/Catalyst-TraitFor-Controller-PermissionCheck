@@ -1,0 +1,29 @@
+# NAME
+
+CatalystX::Controller::Role::PermissionCheck - Provides an opinionated method for verifying permissions on a per-action basis by inspecting the user.
+
+# VERSION
+
+version 0.01
+
+# METHODS
+
+## setup
+
+Before setup is called, this role inspects
+`$c->stash->{context}->{permissions}` for applicable roles.
+
+It confirms permissions to access the action. This only works with
+[Catalyst::DispatchType::Chained](http://search.cpan.org/perldoc?Catalyst::DispatchType::Chained) and will walk the entire chain and verify
+access checks at each level.
+
+# AUTHOR
+
+J. Shirley <jshirley@cpan.org>
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Cold Hard Code, LLC.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.

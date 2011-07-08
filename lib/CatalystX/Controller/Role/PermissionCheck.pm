@@ -134,8 +134,10 @@ after 'setup' => sub {
     # permissions. But it doesn't, so supply a patch!
     my $action = $actions[-1] ? $actions[-1]->name : $c->action->name;
 
-    my $perm = $self->get_permission_for_action( $action );
-    if ( $c->req->method ne 'GET' and not defined $perm ) {
+    my $perm;
+    if ( $c->req->method eq 'GET' ) {
+        $self->get_permission_for_action( $action );
+    } else {
         # Not a GET request, so look up the $action_PUT style actions that
         # Catalyst::Controller::REST uses.
         $perm = $self->get_permission_for_action( $action . '_' . $c->req->method);

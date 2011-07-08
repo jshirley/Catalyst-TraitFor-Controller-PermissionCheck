@@ -101,6 +101,18 @@ has 'allow_by_default' => (
     lazy    => 1,
 );
 
+=method fetch_permissions
+
+Retrieve a hashref of permissions. This may be overridden to allow alternate sources
+of permissions, but by default it looks in $c->stash->{context}->{permissions}.
+
+=cut
+
+sub fetch_permissions {
+    my ( $self, $c ) = @_;
+    return $c->stash->{context}->{permissions};
+}
+
 =method setup
 
 Before setup is called, this role inspects
@@ -139,13 +151,13 @@ after 'setup' => sub {
         $c->detach('permission_denied');
     }
     elsif ( defined $perm and
-            not grep { exists $c->stash->{context}->{permissions}->{$_} } @$perm
+            not grep { exists $self->fetch_permissions($c)->{$_} } @$perm
     ) {
         $c->log->info(
             "Access denied for user: " .
             ( $c->user_exists ? $c->user->name : 'anonymous' ) .
             ", require permissions @$perm for action $action, only has: " .
-            join(', ', keys %{ $c->stash->{context}->{permissions} } )
+            join(', ', keys %{ $self->fetch_permissions($c) } )
         );
         $c->detach('permission_denied');
     }

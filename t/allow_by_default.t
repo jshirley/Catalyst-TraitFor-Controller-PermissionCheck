@@ -6,7 +6,7 @@ use FindBin qw($Bin);
 use lib "$Bin/lib";
 
 use Test::More;
-use Catalyst::Test 'TestApp';
+use Catalyst::Test 'OpenApp';
 
 my $content;
 my $response;
@@ -20,9 +20,5 @@ is( $content, 'open', 'correct body' );
 # This will fail
 $content  = get('/close');
 is( $content, 'denied', 'correct body' );
-#$response = post('index'); # isa redirect
-
-#$content = get('index');
-#like($content, 'A message from a POST', 'correct messaging');
 
 done_testing;

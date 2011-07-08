@@ -6,10 +6,9 @@ use FindBin qw($Bin);
 use lib "$Bin/lib";
 
 use Test::More;
-use Catalyst::Test 'TestApp';
+use Catalyst::Test 'FetchApp';
 
 my $content;
-my $response;
 
 $content  = get('index');
 is( $content, 'index', 'correct body' );
@@ -19,10 +18,6 @@ is( $content, 'open', 'correct body' );
 
 # This will fail
 $content  = get('/close');
-is( $content, 'denied', 'correct body' );
-#$response = post('index'); # isa redirect
-
-#$content = get('index');
-#like($content, 'A message from a POST', 'correct messaging');
+is( $content, 'close', 'correct body' );
 
 done_testing;

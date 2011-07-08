@@ -136,7 +136,7 @@ after 'setup' => sub {
 
     my $perm;
     if ( $c->req->method eq 'GET' ) {
-        $self->get_permission_for_action( $action );
+        $perm = $self->get_permission_for_action( $action );
     } else {
         # Not a GET request, so look up the $action_PUT style actions that
         # Catalyst::Controller::REST uses.

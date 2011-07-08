@@ -11,8 +11,9 @@ with 'CatalystX::Controller::Role::PermissionCheck';
 __PACKAGE__->config(
     namespace => '',
     permissions => {
-        'open'  => [ 'Guest' ],
-        'close' => [ 'Admin' ]
+        'open'        => [ 'Guest' ],
+        'close'       => [ 'Admin' ],
+        'submit_POST' => [ 'Guest' ]
     },
     allow_by_default => 0
 );
@@ -40,6 +41,16 @@ sub open : Chained('setup') Args(0) {
 sub close : Chained('setup') Args(0) {
     my ( $self, $c ) = @_;
     $c->res->body('close');
+}
+
+sub submit : Chained('setup') Args(0) {
+    my ($self, $c) = @_;
+    my $return = 'submit';
+    if($c->req->method eq 'POST') {
+        my $data = $c->req->params;
+        $return = $data->{'return_value'} || 'default post submission';
+    }
+    $c->res->body($return);
 }
 
 sub permission_denied : Private {

@@ -78,6 +78,11 @@ the permissions hash.
 
 # METHODS
 
+## fetch_permissions
+
+Retrieve a hashref of permissions. This may be overridden to allow alternate sources
+of permissions, but by default it looks in $c->stash->{context}->{permissions}.
+
 ## setup
 
 Before setup is called, this role inspects
@@ -86,6 +91,10 @@ Before setup is called, this role inspects
 It confirms permissions to access the action. This only works with
 [Catalyst::DispatchType::Chained](http://search.cpan.org/perldoc?Catalyst::DispatchType::Chained) and will walk the entire chain and verify
 access checks at each level.
+
+# CONTRIBUTORS
+
+Andrew Nelson
 
 # AUTHOR
 

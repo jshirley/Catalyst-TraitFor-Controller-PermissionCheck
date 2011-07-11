@@ -7,14 +7,13 @@ use Try::Tiny;
 
 =head1 SYNOPSIS
 
-In your controller (yes, this is per-controller)
-
     package MyApp::Controller::Something;
 
     use Moose;
 
     BEGIN { extends 'Catalyst::Controller'; }
 
+    # Include the role here
     with 'CatalystX::Controller::Role::PermissionCheck';
 
     __PACKAGE__->config(
@@ -172,4 +171,12 @@ __END__
 
 =pod
 
+=begin :postlude
 
+=head1 CONTRIBUTORS
+
+Andrew Nelson
+
+=end :postlude
+
+=cut

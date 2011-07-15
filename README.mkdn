@@ -8,14 +8,13 @@ version 0.01
 
 # SYNOPSIS
 
-In your controller (yes, this is per-controller)
-
     package MyApp::Controller::Something;
 
     use Moose;
 
     BEGIN { extends 'Catalyst::Controller'; }
 
+    # Include the role here
     with 'CatalystX::Controller::Role::PermissionCheck';
 
     __PACKAGE__->config(

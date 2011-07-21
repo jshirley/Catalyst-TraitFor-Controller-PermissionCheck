@@ -3,6 +3,7 @@ Revision history for CatalystX-Controller-Role-PermissionCheck
 {{$NEXT}}
 
 0.03 Jul 21 2011
+  * Force fetch_permissions to return a hash ref if permissions are undefined
 
 0.02 Jul 15 2011
 

@@ -4,7 +4,7 @@ CatalystX::Controller::Role::PermissionCheck - Provides an opinionated method fo
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # SYNOPSIS
 
@@ -79,8 +79,9 @@ the permissions hash.
 
 ## fetch_permissions
 
-Retrieve a hashref of permissions. This may be overridden to allow alternate sources
-of permissions, but by default it looks in $c->stash->{context}->{permissions}.
+Retrieve a hashref of permissions. This may be overridden to allow alternate
+sources of permissions, but by default it looks in
+$c->stash->{context}->{permissions}.
 
 ## setup
 

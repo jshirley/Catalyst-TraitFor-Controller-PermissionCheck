@@ -1,4 +1,4 @@
-package CatalystX::Controller::Role::PermissionCheck;
+package Catalyst::TraitFor::Controller::PermissionCheck;
 
 use Moose::Role;
 use Try::Tiny;
@@ -14,7 +14,7 @@ use Try::Tiny;
     BEGIN { extends 'Catalyst::Controller'; }
 
     # Include the role here
-    with 'CatalystX::Controller::Role::PermissionCheck';
+    with 'Catalyst::TraitFor::Controller::PermissionCheck';
 
     __PACKAGE__->config(
         permissions => {

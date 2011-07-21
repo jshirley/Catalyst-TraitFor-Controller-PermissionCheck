@@ -6,7 +6,7 @@ BEGIN {
     extends 'Catalyst::Controller';
 }
 
-with 'CatalystX::Controller::Role::PermissionCheck';
+with 'Catalyst::TraitFor::Controller::PermissionCheck';
 
 __PACKAGE__->config(
     namespace => '',

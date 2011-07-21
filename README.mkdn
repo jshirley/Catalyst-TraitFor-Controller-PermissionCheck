@@ -4,7 +4,7 @@ CatalystX::Controller::Role::PermissionCheck - Provides an opinionated method fo
 
 # VERSION
 
-version 0.01
+version 0.02
 
 # SYNOPSIS
 

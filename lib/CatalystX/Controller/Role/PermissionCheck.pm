@@ -102,14 +102,15 @@ has 'allow_by_default' => (
 
 =method fetch_permissions
 
-Retrieve a hashref of permissions. This may be overridden to allow alternate sources
-of permissions, but by default it looks in $c->stash->{context}->{permissions}.
+Retrieve a hashref of permissions. This may be overridden to allow alternate
+sources of permissions, but by default it looks in
+$c->stash->{context}->{permissions}.
 
 =cut
 
 sub fetch_permissions {
     my ( $self, $c ) = @_;
-    return $c->stash->{context}->{permissions};
+    return $c->stash->{context}->{permissions} || {};
 }
 
 =method setup

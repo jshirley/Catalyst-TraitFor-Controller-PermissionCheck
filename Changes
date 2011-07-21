@@ -1,6 +1,7 @@
-Revision history for CatalystX-Controller-Role-PermissionCheck
+Revision history for Catalyst-TraitFor-Controller-PermissionCheck
 
 {{$NEXT}}
+  * Renaming to Catalyst::TraitFor::Controller::PermissionCheck, per Catalyst naming conventions.
 
 0.03 Jul 21 2011
   * Force fetch_permissions to return a hash ref if permissions are undefined
